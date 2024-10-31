@@ -1,4 +1,3 @@
-import React from 'react';
 import { X, Download, Calendar, FileText, Trash2 } from 'lucide-react';
 import { ImageModalProps } from '../types';
 import { format } from 'date-fns';
@@ -15,7 +14,7 @@ export function ImageModal({ image, onClose, onDelete, isAdmin }: ImageModalProp
 
   return (
     <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center backdrop-blur-sm animate-in fade-in">
-      <div className="relative max-w-7xl w-full mx-4 bg-white rounded-lg shadow-2xl overflow-hidden animate-in zoom-in-50">
+      <div className="relative max-w-7xl w-full mx-4 sm:mx-8 lg:mx-12 bg-white rounded-lg shadow-2xl overflow-hidden animate-in zoom-in-50">
         <div className="flex justify-between items-center p-4 border-b">
           <h3 className="text-lg font-semibold">Image Details</h3>
           <div className="flex items-center gap-2">
@@ -23,6 +22,7 @@ export function ImageModal({ image, onClose, onDelete, isAdmin }: ImageModalProp
               <button
                 onClick={handleDelete}
                 className="text-red-500 hover:text-red-700 transition-colors p-2"
+                aria-label='Delete item'
               >
                 <Trash2 size={20} />
               </button>
@@ -30,6 +30,7 @@ export function ImageModal({ image, onClose, onDelete, isAdmin }: ImageModalProp
             <button
               onClick={onClose}
               className="text-gray-500 hover:text-gray-700 transition-colors"
+              aria-label='Close'
             >
               <X size={24} />
             </button>
@@ -41,7 +42,8 @@ export function ImageModal({ image, onClose, onDelete, isAdmin }: ImageModalProp
             <img
               src={image.imgbb_display_url}
               alt={image.imgbb_title || 'Generated Image'}
-              className="w-full rounded-lg object-contain"
+              className="w-full rounded-lg object-contain max-h-[80vh] sm:max-h-[60vh]"
+              loading="lazy"
             />
             <a 
               href={image.imgbb_display_url}
@@ -49,6 +51,7 @@ export function ImageModal({ image, onClose, onDelete, isAdmin }: ImageModalProp
               className="absolute bottom-4 right-4 bg-white/90 p-2 rounded-full shadow-lg hover:bg-white transition-colors"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Download image"
             >
               <Download size={20} />
             </a>

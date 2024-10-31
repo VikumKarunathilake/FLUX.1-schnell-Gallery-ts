@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3001',
+        target: 'http://flux1-api.up.railway.app',
         changeOrigin: true,
       },
     },
