@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://flux1-api.up.railway.app/',
+        target: 'https://flux-api.up.railway.app/',
         changeOrigin: true,
       },
     },
