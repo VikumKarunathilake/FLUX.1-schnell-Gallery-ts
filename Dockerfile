@@ -1,8 +1,6 @@
 # Use the official Node.js image for building the app.
-FROM node:16 AS build
+FROM node:16
 
-ENV VITE_API_BASE_URL=https://flux-api.up.railway.app
-ENV PORT=3000
 # Set the working directory.
 WORKDIR /app
 
@@ -15,17 +13,13 @@ RUN npm install
 # Copy the entire project.
 COPY . .
 
-# Build the Vite project.
-RUN npm run build
+# Set the environment variable
+ARG VITE_API_BASE_URL
+ENV VITE_API_BASE_URL=https://flux-api.up.railway.app
+ENV PORT=3000
 
-# Use the official Nginx image to serve the built files.
-FROM nginx:alpine
+# Expose the port that Vite uses
+EXPOSE 3000
 
-# Copy the build files from the previous stage.
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Expose the port the app runs on.
-EXPOSE 80
-
-# Start Nginx.
-CMD ["nginx", "-g", "daemon off;"]
+# Start the Vite development server
+CMD ["npm", "run", "dev", "--host"]
