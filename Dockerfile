@@ -1,11 +1,11 @@
 # Step 1: Build the application
-FROM node:16 AS build
+FROM node:18 AS build
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
 # Copy package.json and package-lock.json
-COPY package*.json ./
+COPY package.json package-lock.json ./
 
 # Install dependencies
 RUN npm install
@@ -16,13 +16,16 @@ COPY . .
 # Build the application for production
 RUN npm run build
 
-# Step 2: Serve the application
+# Step 2: Serve the application with a lightweight server
 FROM nginx:alpine
 
-# Copy the build output to Nginx's public folder
+# Copy the built files from the previous stage
 COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Expose the port that Nginx will run on
+ENV VITE_API_BASE_URL=https://flux-api.up.railway.app
+ENV PORT=3000
+# Expose port 80
 EXPOSE 80
 
 # Start Nginx
