@@ -16,10 +16,10 @@ COPY . .
 # Set the environment variable
 ARG VITE_API_BASE_URL
 ENV VITE_API_BASE_URL=https://flux-api.up.railway.app
-ENV PORT=3000
+ENV PORT=5173
 
 # Expose the port that Vite uses
-EXPOSE 3000
+EXPOSE 5173
 
 # Start the Vite development server
 CMD ["npm", "run", "dev", "--host"]
