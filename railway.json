@@ -1,0 +1,12 @@
+{
+    "build": {
+      "dockerfile": "Dockerfile"
+    },
+    "deploy": {
+      "commands": [
+        "docker build -t my-vite-app .",
+        "docker run -d -p 80:80 my-vite-app"
+      ]
+    }
+  }
+  
