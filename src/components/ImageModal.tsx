@@ -13,8 +13,8 @@ export function ImageModal({ image, onClose, onDelete, isAdmin }: ImageModalProp
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center backdrop-blur-sm animate-in fade-in">
-      <div className="relative max-w-7xl w-full mx-4 sm:mx-8 lg:mx-12 bg-white rounded-lg shadow-2xl overflow-hidden animate-in zoom-in-50">
+    <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center backdrop-blur-sm animate-in fade-in p-4">
+      <div className="relative w-full max-w-5xl bg-white rounded-lg shadow-2xl overflow-hidden animate-in zoom-in-50">
         <div className="flex justify-between items-center p-4 border-b">
           <h3 className="text-lg font-semibold">Image Details</h3>
           <div className="flex items-center gap-2">
@@ -37,33 +37,35 @@ export function ImageModal({ image, onClose, onDelete, isAdmin }: ImageModalProp
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
-          <div className="relative">
-            <img
-              src={image.imgbb_display_url}
-              alt={image.imgbb_title || 'Generated Image'}
-              className="w-full rounded-lg object-contain max-h-[80vh] sm:max-h-[60vh]"
-              loading="lazy"
-            />
-            <a 
-              href={image.imgbb_display_url}
-              download
-              className="absolute bottom-4 right-4 bg-white/90 p-2 rounded-full shadow-lg hover:bg-white transition-colors"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Download image"
-            >
-              <Download size={20} />
-            </a>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+          <div className="relative flex items-center justify-center bg-gray-50 rounded-lg">
+            <div className="relative w-full pt-[100%]">
+              <img
+                src={image.imgbb_display_url}
+                alt={image.imgbb_title || 'Generated Image'}
+                className="absolute inset-0 w-full h-full object-contain p-4"
+                loading="lazy"
+              />
+              <a 
+                href={image.imgbb_display_url}
+                download
+                className="absolute bottom-4 right-4 bg-white/90 p-2 rounded-full shadow-lg hover:bg-white transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Download image"
+              >
+                <Download size={20} />
+              </a>
+            </div>
           </div>
           
-          <div className="space-y-4">
+          <div className="space-y-6">
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-gray-600">
                 <FileText size={20} />
                 <h4 className="font-medium">Prompt</h4>
               </div>
-              <p className="text-gray-700">{image.generation_prompt}</p>
+              <p className="text-gray-700 break-words">{image.generation_prompt}</p>
             </div>
             
             <div className="space-y-2">
@@ -77,11 +79,11 @@ export function ImageModal({ image, onClose, onDelete, isAdmin }: ImageModalProp
             </div>
             
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-gray-50 p-3 rounded-lg">
+              <div className="bg-gray-50 p-4 rounded-lg">
                 <p className="text-sm text-gray-600">Dimensions</p>
                 <p className="font-medium">{image.imgbb_width} × {image.imgbb_height}</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded-lg">
+              <div className="bg-gray-50 p-4 rounded-lg">
                 <p className="text-sm text-gray-600">Size</p>
                 <p className="font-medium">{image.imgbb_size}</p>
               </div>

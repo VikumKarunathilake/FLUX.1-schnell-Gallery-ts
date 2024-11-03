@@ -74,13 +74,14 @@ export function Gallery() {
           <p className="mt-4 text-gray-600">Loading images...</p>
         </div>
       ) : filteredImages.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 [column-fill:_balance] w-full">
           {filteredImages.map((image) => (
-            <ImageCard
-              key={image.id}
-              image={image}
-              onClick={() => setSelectedImage(image)}
-            />
+            <div key={image.id} className="break-inside-avoid mb-6">
+              <ImageCard
+                image={image}
+                onClick={() => setSelectedImage(image)}
+              />
+            </div>
           ))}
         </div>
       ) : (
