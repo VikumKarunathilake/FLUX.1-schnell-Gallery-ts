@@ -54,7 +54,7 @@ export function Gallery() {
   );
 
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main className="max-w-9xl mx-auto px-2 sm:px-4 lg:px-6 py-4">
       <div className="mb-8">
         <div className="relative max-w-md mx-auto">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
@@ -74,7 +74,7 @@ export function Gallery() {
           <p className="mt-4 text-gray-600">Loading images...</p>
         </div>
       ) : filteredImages.length > 0 ? (
-        <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 [column-fill:_balance] w-full">
+        <div className="columns-2 sm:columns-3 lg:columns-4 xl:columns-5 gap-6 [column-fill:_balance] w-full">
           {filteredImages.map((image) => (
             <div key={image.id} className="break-inside-avoid mb-6">
               <ImageCard
