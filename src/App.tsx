@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext';
 import { Gallery } from './pages/Gallery';
 import { LoginPage } from './pages/Login';
 import { Navbar } from './components/Navbar';
+import Footer from './components/Footer';
 import ReactGA from 'react-ga4';
 import { useEffect } from 'react';
 
@@ -26,6 +27,7 @@ function App() {
         </div>
       </Router>
     </AuthProvider>
+    <Footer/>
     </div>
   );
 }
