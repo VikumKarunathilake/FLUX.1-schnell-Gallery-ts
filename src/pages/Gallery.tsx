@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Camera } from 'lucide-react';
+import { Search, Camera, RefreshCw } from 'lucide-react';
 import { ImageCard } from '../components/ImageCard';
 import { ImageModal } from '../components/ImageModal';
 import { useAuth } from '../context/AuthContext';
@@ -9,6 +9,7 @@ export function Gallery() {
   const [images, setImages] = useState<GeneratedImage[]>([]);
   const [selectedImage, setSelectedImage] = useState<GeneratedImage | null>(null);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const { user } = useAuth();
 
@@ -26,6 +27,12 @@ export function Gallery() {
       console.error('Error fetching images:', error);
       setLoading(false);
     }
+  };
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await fetchImages();
+    setRefreshing(false);
   };
 
   const handleDelete = async (id: number) => {
@@ -55,8 +62,8 @@ export function Gallery() {
 
   return (
     <main className="max-w-9xl mx-auto px-2 sm:px-4 lg:px-6 py-4">
-      <div className="mb-8">
-        <div className="relative max-w-md mx-auto">
+      <div className="mb-8 flex flex-col sm:flex-row gap-4 items-center">
+        <div className="relative w-full sm:max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
           <input
             type="text"
@@ -66,6 +73,15 @@ export function Gallery() {
             className="pl-10 pr-4 py-2 w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
           />
         </div>
+        <button
+          onClick={handleRefresh}
+          disabled={refreshing}
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-colors disabled:opacity-50"
+          aria-label=''
+        >
+          <RefreshCw className={`h-5 w-5 ${refreshing ? 'animate-spin' : ''}`} />
+          <span className="hidden sm:inline">Refresh</span>
+        </button>
       </div>
 
       {loading ? (
@@ -74,7 +90,7 @@ export function Gallery() {
           <p className="mt-4 text-gray-600">Loading images...</p>
         </div>
       ) : filteredImages.length > 0 ? (
-        <div className="columns-2 sm:columns-3 lg:columns-4 xl:columns-5 gap-6 [column-fill:_balance] w-full">
+        <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 2xl:columns-5 gap-6 [column-fill:_balance] w-full">
           {filteredImages.map((image) => (
             <div key={image.id} className="break-inside-avoid mb-6">
               <ImageCard
