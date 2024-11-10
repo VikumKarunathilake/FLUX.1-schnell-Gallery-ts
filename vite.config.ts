@@ -8,7 +8,7 @@ export default defineConfig({
     host: '0.0.0.0',
     proxy: {
       '/api': {
-        target: 'https://gallery.api.elixircraft.net',
+        target: 'https://flux-api.up.railway.app/',
         changeOrigin: true,
       },
     },
