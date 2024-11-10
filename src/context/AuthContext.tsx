@@ -8,7 +8,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const stored = localStorage.getItem('user');
     return stored ? JSON.parse(stored) : null;
   });
-  const API_URL = 'https://gallery.api.elixircraft.net/'
+  const API_URL = 'https://gallery.api.elixircraft.net'
   const login = async (username: string, password: string) => {
     const response = await fetch(`${API_URL}/api/auth/login`, {
       method: 'POST',

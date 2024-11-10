@@ -19,7 +19,7 @@ export function Gallery() {
   const [currentPage, setCurrentPage] = useState(1)
   const [sortBy, setSortBy] = useState<SortOption>('newest')
   const { user } = useAuth()
-  const API_URL = 'https://gallery.api.elixircraft.net/'
+  const API_URL = 'https://gallery.api.elixircraft.net'
   const ITEMS_PER_PAGE = 20
 
   useEffect(() => {
