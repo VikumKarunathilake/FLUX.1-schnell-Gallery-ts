@@ -44,3 +44,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.ad-display-block {
+  display: block;
+}

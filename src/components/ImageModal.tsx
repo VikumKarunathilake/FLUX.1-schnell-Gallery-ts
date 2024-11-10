@@ -1,29 +1,29 @@
-import { X, Download, Calendar, FileText, Trash2, ChevronDown, ChevronUp } from 'lucide-react';
-import { ImageModalProps } from '../types';
-import { format } from 'date-fns';
-import { useState } from 'react';
+import { X, Download, Calendar, FileText, Trash2, ChevronDown, ChevronUp } from 'lucide-react'
+import { ImageModalProps } from '../types'
+import { format } from 'date-fns'
+import { useState } from 'react'
 
 export function ImageModal({ image, onClose, onDelete, isAdmin }: ImageModalProps) {
-  const [isPromptExpanded, setIsPromptExpanded] = useState(false);
+  const [isPromptExpanded, setIsPromptExpanded] = useState(false)
   
-  if (!image) return null;
+  if (!image) return null
 
   const handleDelete = async () => {
     if (onDelete && window.confirm('Are you sure you want to delete this image?')) {
-      await onDelete(image.id);
-      onClose();
+      await onDelete(image.id)
+      onClose()
     }
-  };
+  }
 
-  const promptLength = image.generation_prompt?.length || 0;
-  const shouldTruncate = promptLength > 200;
+  const promptLength = image.generation_prompt?.length || 0
+  const shouldTruncate = promptLength > 200
   const truncatedPrompt = shouldTruncate && !isPromptExpanded
     ? `${image.generation_prompt?.slice(0, 200)}...`
-    : image.generation_prompt;
+    : image.generation_prompt
 
   return (
     <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center backdrop-blur-sm animate-in fade-in p-2 sm:p-4 overflow-y-auto">
-      <div className="relative w-full max-w-5xl bg-white rounded-lg shadow-2xl overflow-hidden animate-in zoom-in-50 my-4">
+      <div className="relative w-full max-w-7xl bg-white rounded-lg shadow-2xl overflow-hidden animate-in zoom-in-50 my-4">
         <div className="flex justify-between items-center p-4 border-b">
           <h3 className="text-lg font-semibold">Image Details</h3>
           <div className="flex items-center gap-2">
@@ -48,7 +48,7 @@ export function ImageModal({ image, onClose, onDelete, isAdmin }: ImageModalProp
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-4 sm:p-6">
           <div className="relative flex items-center justify-center bg-gray-50 rounded-lg">
-            <div className="relative w-full pt-[100%]">
+            <div className="relative w-full pt-[75%] lg:pt-[100%]">
               <img
                 src={image.imgbb_display_url}
                 alt={image.imgbb_title || 'Generated Image'}
@@ -68,20 +68,20 @@ export function ImageModal({ image, onClose, onDelete, isAdmin }: ImageModalProp
             </div>
           </div>
           
-          <div className="space-y-6">
+          <div className="space-y-6 lg:max-h-[calc(100vh-12rem)] lg:overflow-y-auto">
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-gray-600">
                 <FileText size={20} />
                 <h4 className="font-medium">Prompt</h4>
               </div>
               <div className="relative">
-                <p className="text-gray-700 break-words">
+                <p className="text-gray-700 break-words text-sm sm:text-base">
                   {truncatedPrompt}
                 </p>
                 {shouldTruncate && (
                   <button
                     onClick={() => setIsPromptExpanded(!isPromptExpanded)}
-                    className="flex items-center gap-1 text-indigo-600 hover:text-indigo-700 mt-2"
+                    className="flex items-center gap-1 text-primary hover:text-primary/80 mt-2 text-sm"
                   >
                     {isPromptExpanded ? (
                       <>
@@ -104,24 +104,24 @@ export function ImageModal({ image, onClose, onDelete, isAdmin }: ImageModalProp
                 <Calendar size={20} />
                 <h4 className="font-medium">Generated</h4>
               </div>
-              <p className="text-gray-700">
+              <p className="text-gray-700 text-sm sm:text-base">
                 {format(new Date(image.generation_timestamp), 'PPpp')}
               </p>
             </div>
             
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="text-sm text-gray-600">Dimensions</p>
-                <p className="font-medium">{image.imgbb_width} × {image.imgbb_height}</p>
+                <p className="text-xs sm:text-sm text-gray-600">Dimensions</p>
+                <p className="font-medium text-sm sm:text-base">{image.imgbb_width} × {image.imgbb_height}</p>
               </div>
               <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="text-sm text-gray-600">Size</p>
-                <p className="font-medium">{image.imgbb_size}</p>
+                <p className="text-xs sm:text-sm text-gray-600">Size</p>
+                <p className="font-medium text-sm sm:text-base">{image.imgbb_size}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
