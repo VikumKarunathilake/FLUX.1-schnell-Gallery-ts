@@ -19,7 +19,7 @@ export function Gallery() {
   const [currentPage, setCurrentPage] = useState(1)
   const [sortBy, setSortBy] = useState<SortOption>('newest')
   const { user } = useAuth()
-
+  const API_URL = 'https://gallery.api.elixircraft.net/'
   const ITEMS_PER_PAGE = 20
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export function Gallery() {
 
   const fetchImages = async () => {
     try {
-      const res = await fetch('/api/images')
+      const res = await fetch(`${API_URL}/api/images`)
       const data = await res.json()
       setImages(data)
       setLoading(false)
@@ -51,7 +51,7 @@ export function Gallery() {
   const handleDelete = async (id: number) => {
     try {
       const token = localStorage.getItem('token')
-      const response = await fetch(`/api/images/${id}`, {
+      const response = await fetch(`${API_URL}/api/images/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
